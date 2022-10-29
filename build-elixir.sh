@@ -7,7 +7,7 @@ clear
 
 # Validation.
 if [ "$#" -ne 1 ]; then
-    echo "Use: ./build.sh \"2 - basic arithmetic\""
+    echo "Use: ./build-elixir.sh \"2 - basic arithmetic\""
     exit 2
 fi
 
@@ -25,7 +25,7 @@ echo "Build modules..."
 cd "0 - utils"
 rm -rf *.beam
 
-elixirc divisibility_criteria.ex
+elixirc division.ex
 
 cd "../1 - project/"
 rm -rf *
@@ -39,8 +39,14 @@ cp -R * "../1 - project/"
 cd ..
 
 # Build app.
+echo "Running..."
+echo ""
+
 cd "1 - project"
+rm -rf *.erl
+
 elixir app.ex
+
 rm -rf *
 
 

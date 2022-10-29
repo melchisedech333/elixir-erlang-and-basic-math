@@ -1,12 +1,12 @@
 
 # IHS <3
 
-import DivisibilityCriteria, only: [divisible_by: 2]
+import Division, only: [divisible_by: 2]
 
 defmodule IHS do
     defmodule Fiat do
         def lux() do
-            IO.puts divisible_by(1, 2)
+            IO.puts divisible_by(5, 3)
         end
     end
 end
