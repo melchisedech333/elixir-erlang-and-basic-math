@@ -7,6 +7,20 @@ The purpose of this repository is to help familiarize me with the syntax of the 
 
 <br>
 
+## Erlang
+
+- <b>erl</b> - open interactive shell.
+- <b>halt().</b> - terminate interactive shell.
+
+<br>
+
+## Elixir
+
+- <b>iex</b> - open interactive shell.
+- <b>:init.stop</b> - terminate interactive shell.
+
+<br>
+
 :smiley: Author
 ---
 
