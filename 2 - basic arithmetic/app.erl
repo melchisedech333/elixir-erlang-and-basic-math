@@ -8,7 +8,26 @@ ihs () -> fiat(), lux().
 fiat() -> ok .
 lux () ->
 
-    A = division:divisible_by(5, 3),
-    io:format("value: ~w~n", [ A ]).
+    io:format("Operations:~n~n"),
+    operations().
+
+operations() ->
+    A = 10,
+    B = 20,
+
+    io:format("\t~w ~c ~w = ~w~n", [ A, $+, B, calc(A, B, $+) ]),
+    io:format("\t~w ~c ~w = ~w~n", [ A, $-, B, calc(A, B, $-) ]),
+    io:format("\t~w ~c ~w = ~w~n", [ A, $*, B, calc(A, B, $*) ]),
+    io:format("\t~w ~c ~w = ~w~n", [ A, $/, B, calc(A, B, $/) ]).
+
+%% Define as cláusulas da função.
+calc(X, Y, C) when C == $+ ->
+    X + Y;
+calc(X, Y, C) when C == $- ->
+    X - Y;
+calc(X, Y, C) when C == $* ->
+    X * Y;
+calc(X, Y, C) when C == $/ ->
+    X / Y.
 
 
