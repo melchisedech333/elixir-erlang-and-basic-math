@@ -18,7 +18,10 @@ lux () ->
     addition(),
 
     io:format("Multiplication:~n~n"),
-    multiplication().
+    multiplication(),
+
+    io:format("Division:~n~n"),
+    division().
 
 operations() ->
     A = 10,
@@ -135,6 +138,23 @@ multiplication() ->
     Mult(29.01, 4.0),
     Mult(2901.0 / 100.0, 40.0   / 10.0),
 
+    io:format("~n~n").
+
+division() ->
+    Quotient = 4.0,
+    Divider = 2.0,
+    Rest = 1.0,
+    Dividend = Divider * Quotient + Rest,
+
+    io:format("\t~w = ~w x ~w + ~w~n", [ Dividend, Divider, Quotient, Rest ]),
+    io:format("\t~w / ~w = ~w~n", [ Dividend, Divider, Dividend / Divider ]),
+
+    Div = fun(X, Y) -> 
+        io:format("\t~w / ~w = ~w~n", [ X, Y, X / Y ]) end,
+
+    Div(433.0, 6.0),
+    Div(8.0, 1230.0),
+    
     io:format("~n~n").
 
 
