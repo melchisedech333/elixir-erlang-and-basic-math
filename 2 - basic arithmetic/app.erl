@@ -1,5 +1,5 @@
 
-% Iesus Honinum Salvator <3
+% Iesus Hominum Salvator <3
 
 -module(app).
 -export([ihs/0]).

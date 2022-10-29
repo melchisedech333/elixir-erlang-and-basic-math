@@ -1,5 +1,5 @@
 
-# Iesus Honinum Salvator <3
+# Iesus Hominum Salvator <3
 
 import Division, only: [divisible_by: 2]
 
