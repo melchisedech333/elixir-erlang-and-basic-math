@@ -13,7 +13,7 @@ fi
 
 if [ -d "$1" ] 
 then
-    echo "Build: \"$1\"" 
+    echo "ErLang source: \"$1\"" 
 else
     echo "Directory not found: \"$1\""
     exit 2
@@ -47,7 +47,8 @@ cd "1 - project"
 rm -rf *.ex
 
 erl -compile app.erl
-erl -noshell -s app app -s init stop
+# erl -noshell -s app app -s init stop
+erl -noshell -s app ihs -s init stop
 
 rm -rf *
 

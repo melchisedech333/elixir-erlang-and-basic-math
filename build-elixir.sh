@@ -13,7 +13,7 @@ fi
 
 if [ -d "$1" ] 
 then
-    echo "Build: \"$1\"" 
+    echo "Elixir source: \"$1\"" 
 else
     echo "Directory not found: \"$1\""
     exit 2
