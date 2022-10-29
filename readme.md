@@ -9,15 +9,20 @@ The purpose of this repository is to help familiarize me with the syntax of the 
 
 ## Erlang
 
+- <b>.erl</b> - file extension.
 - <b>erl</b> - open interactive shell.
 - <b>halt().</b> - terminate interactive shell.
+- <b>c(file_name).</b> - compile (shell).
+- <b>erl -compile app.erl; erl -noshell -s app app -s init stop</b> - compile (command), and execute.
 
 <br>
 
 ## Elixir
 
+- <b>.ex</b> - file extension.
 - <b>iex</b> - open interactive shell.
 - <b>:init.stop</b> - terminate interactive shell.
+- <b>elixir app.ex</b> - compile (command), and execute.
 
 <br>
 
