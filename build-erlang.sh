@@ -25,6 +25,7 @@ echo "Build modules..."
 cd "0 - utils"
 rm -rf *.beam
 
+erl -compile utils.erl
 erl -compile division.erl
 
 cd "../1 - project/"

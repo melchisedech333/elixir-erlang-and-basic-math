@@ -25,6 +25,7 @@ echo "Build modules..."
 cd "0 - utils"
 rm -rf *.beam
 
+elixirc utils.ex
 elixirc division.ex
 
 cd "../1 - project/"
