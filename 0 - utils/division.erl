@@ -6,7 +6,7 @@ divisible_by(Value, Number) ->
     case Number of
         2 -> Value rem Number == 0;
         3 -> divisible_by_3(Value);
-        4 -> false;
+        4 -> divisible_by_4(Value);
         5 -> false;
         6 -> false;
         7 -> false;
@@ -19,28 +19,10 @@ divisible_by(Value, Number) ->
         25 -> false
     end.
 
+
 divisible_by_3(Value) ->
     List  = utils:number_to_list(Value),
     Total = utils:sums_elements(List),
-
-    io:format("Total: ~w~n", [ Total ]),
-
-    false.
-
-
-% fn divisible_by_3(value: i32) -> bool {
-%     let number = value.to_string();
-%     let mut total = 0;
-
-%     for item in number.chars() {
-%         let num :i32 = 
-%             item.to_string().trim()
-%                 .parse().expect("Enter a valid number.");
-        
-%         total += num;
-%     }
-
-%     total % 3 == 0
-% }
+    Total rem 3 == 0.
 
 
