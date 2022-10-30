@@ -26,3 +26,36 @@ divisible_by_3(Value) ->
     Total rem 3 == 0.
 
 
+divisible_by_4(Value) when Value =< 99 -> 
+    Value rem 4 == 0;
+
+divisible_by_4(Value) when Value  > 99 -> 
+    List = utils:number_to_list(Value),
+    Last = utils:get_last_items(List, 2),
+
+    io:format("Last elements: ~w~n", [ Last ]),
+
+    true;
+
+divisible_by_4(Value) ->
+    io:format("invalid number (divisible by 4).~n"), 
+    false.
+
+% fn divisible_by_4(value: i32) -> bool {
+%     let number = value.to_string();
+%     let offset;
+
+%     if number.len() >= 2 {
+%         offset = number.len() - 2;
+%     } else {
+%         offset = number.len() - 1;
+%     }
+
+%     let part = &number[offset..];
+%     let number :i32 = part.to_string().trim()
+%         .parse().expect("Enter a valid number.");
+    
+%     number % 4 == 0
+% }
+
+
