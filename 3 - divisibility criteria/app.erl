@@ -9,11 +9,7 @@ fiat() -> ok .
 lux () ->
 
     Options = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 25 ],
-    Value   =   12345,
-
-    % io:format("Last items: ~w~n~n", [ 
-    %     utils:get_last_items([1, 2, 3], 4) 
-    % ]),
+    Value   =   1234528,
 
     Elms = fun(Value, X) -> 
         Result = division:divisible_by(Value, X),

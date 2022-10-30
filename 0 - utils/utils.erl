@@ -2,7 +2,7 @@
 -module(utils).
 -export([map_elements/2, access_elements_pvalue/3, number_to_list/1, 
          sums_elements/1, get_list_size/1, get_last_items/2,
-         reverse_list/1]).
+         reverse_list/1, list_numbers_to_string/1]).
 
 %% 
 %% Access elements of a list, making it possible to change their 
@@ -75,9 +75,9 @@ sums_elements([], Number) ->
 
 
 %% 
-%% pega o tamanho da lista e subtrai N dela, esse valor será o index no qual
-%% a partir dele será realizada a leitura dos próximos elementos, onde os mesmos
-%% serão armazenados numa nova lista e retornados.
+%% Returns the last N elements of a list.
+%%
+%%   Elements = get_last_items([1, 2, 3], 2)
 %%
 
 get_last_items(StartList, StartAmount) ->
@@ -96,7 +96,6 @@ get_last_items(StartList, StartAmount) ->
 
 
 get_last_items([Head | Rest], Offset, Index, List) when Index >= Offset ->
-    io:format("item[~w]: ~w~n", [ Index, Head ]),
     get_last_items(Rest, Offset, Index + 1, [ Head | List ]);
 
 get_last_items([Head | Rest], Offset, Index, List) ->
@@ -131,7 +130,7 @@ get_list_size([], Count) ->
 %%
 %% Reverses the order of elements in a list. 
 %% 
-%% List = reverse_list([1, 2, 3])
+%%   List = reverse_list([1, 2, 3])
 %% 
 
 reverse_list(List) ->
@@ -142,5 +141,20 @@ reverse_list([Head | Rest], List) ->
 
 reverse_list([], List) ->
     List.
+
+%%
+%% Converts a list of integers to the equivalent string 
+%% representation according to the ASCII table.
+%%
+%%   String = list_numbers_to_string([1, 2, 3])
+%%
+
+list_numbers_to_string(List) ->
+
+    Convert = fun(X) -> 
+        X + 48 % ASCII table.
+    end,
+
+    map_elements(Convert, List).
 
 
