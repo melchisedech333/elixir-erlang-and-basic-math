@@ -7,7 +7,7 @@ divisible_by(Value, Number) ->
         2 -> Value rem Number == 0;
         3 -> divisible_by_3(Value);
         4 -> divisible_by_4(Value);
-        5 -> false;
+        5 -> divisible_by_5(Value);
         6 -> false;
         7 -> false;
         8 -> false;
@@ -39,5 +39,18 @@ divisible_by_4(Value) when Value  > 99 ->
 divisible_by_4(Value) ->
     io:format("invalid number (divisible by 4).~n"), 
     false.
+
+
+divisible_by_5(Value) ->
+    List = utils:number_to_list(Value),
+    Elem = utils:get_last_items(List, 1),
+    Last = utils:list_numbers_to_string(Elem),
+    { Num, _ } = string:to_integer(Last),
+
+    if
+        Num == 5 -> true;
+        Num == 0 -> true;
+        true -> false
+    end.
 
 
