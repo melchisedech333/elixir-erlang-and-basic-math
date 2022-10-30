@@ -142,6 +142,7 @@ reverse_list([Head | Rest], List) ->
 reverse_list([], List) ->
     List.
 
+
 %%
 %% Converts a list of integers to the equivalent string 
 %% representation according to the ASCII table.
