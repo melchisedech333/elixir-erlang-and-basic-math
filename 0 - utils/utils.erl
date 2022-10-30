@@ -196,23 +196,25 @@ process_split_blocks(List, Size, BlockSize, Adjust) ->
 
     if 
         V == true -> 
-            process_blocks(List, BlockSize, 1, [], []);
+            process_stable_blocks(List, BlockSize, 1, [], []);
         true ->
-            io:format("size NOT divisible by ~w~n", [ BlockSize ])
+            process_segmented_blocks(List, BlockSize, Adjust)
     end.
 
-process_blocks([ H | R ], BlockSize, Count, Block, Blocks) ->
+process_stable_blocks([ H | R ], BlockSize, Count, Block, Blocks) ->
     Size = get_list_size(Block),
 
     if 
         Size == BlockSize ->
             BlockItem = prepare_block_number(Block),
-            process_blocks(R, BlockSize, Count + 1, [ H ], [ BlockItem | Blocks]);
+            process_stable_blocks(
+                R, BlockSize, Count + 1, [ H ], [ BlockItem | Blocks]);
         true ->
-            process_blocks(R, BlockSize, Count + 1, [ H | Block ], Blocks)
+            process_stable_blocks(
+                R, BlockSize, Count + 1, [ H | Block ], Blocks)
     end;
     
-process_blocks([], BlockSize, Count, Block, Blocks) ->
+process_stable_blocks([], BlockSize, Count, Block, Blocks) ->
     BlockItem = prepare_block_number(Block),
     reverse_list([ BlockItem | Blocks ]).
 
@@ -221,5 +223,9 @@ prepare_block_number(List) ->
     B = list_numbers_to_string(A),
     { Number, _ } = string:to_integer(B),
     Number.
+
+process_segmented_blocks(List, BlockSize, Adjust) ->
+
+    .
 
 
