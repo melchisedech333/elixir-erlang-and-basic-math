@@ -2,7 +2,7 @@
 -module(utils).
 -export([map_elements/2, access_elements_pvalue/3, number_to_list/1, 
          sums_elements/1, get_list_size/1, get_last_items/2,
-         reverse_list/1, list_numbers_to_string/1]).
+         reverse_list/1, list_numbers_to_string/1, split_list_in_blocks/3]).
 
 %% 
 %% Access elements of a list, making it possible to change their 
@@ -157,5 +157,69 @@ list_numbers_to_string(List) ->
     end,
 
     map_elements(Convert, List).
+
+
+%% 
+%% Divides a list of numbers into groups containing N-elements.
+%% You can adjust the alignment of the parts.
+%% 
+%% BlockSize - integer: 
+%%   The size of the digit block.
+%% 
+%% Adjust - integer: 
+%%   Adjusts the alignment of blocks, if necessary.
+%%   
+%%   0 = Left  - Align the blocks to the left ([12, 234, 234]).
+%%   1 = Right - Align the blocks to the right ([122, 342, 34]).
+%% 
+%% Example of use:
+%% 
+%%   Blocks = split_list_in_blocks([1, 2, 3, 4, 5, 6], 3),
+%%   io:format("Blocks: ~w~n", [ Blocks ])
+%% 
+
+split_list_in_blocks(List, BlockSize, Adjust) when BlockSize =< 0 ->
+    io:format("Invalid block size.~n"), [];
+
+split_list_in_blocks(List, BlockSize, Adjust) ->
+    Size = utils:get_list_size(List),
+
+    if
+        BlockSize > Size ->
+            io:format("Invalid block size.~n"), [];
+        true ->
+            process_split_blocks(List, Size, BlockSize, Adjust)
+    end.
+
+process_split_blocks(List, Size, BlockSize, Adjust) ->
+    V = (Size rem BlockSize == 0),
+
+    if 
+        V == true -> 
+            process_blocks(List, BlockSize, 1, [], []);
+        true ->
+            io:format("size NOT divisible by ~w~n", [ BlockSize ])
+    end.
+
+process_blocks([ H | R ], BlockSize, Count, Block, Blocks) ->
+    Size = get_list_size(Block),
+
+    if 
+        Size == BlockSize ->
+            BlockItem = prepare_block_number(Block),
+            process_blocks(R, BlockSize, Count + 1, [ H ], [ BlockItem | Blocks]);
+        true ->
+            process_blocks(R, BlockSize, Count + 1, [ H | Block ], Blocks)
+    end;
+    
+process_blocks([], BlockSize, Count, Block, Blocks) ->
+    BlockItem = prepare_block_number(Block),
+    reverse_list([ BlockItem | Blocks ]).
+
+prepare_block_number(List) ->
+    A = reverse_list(List),
+    B = list_numbers_to_string(A),
+    { Number, _ } = string:to_integer(B),
+    Number.
 
 

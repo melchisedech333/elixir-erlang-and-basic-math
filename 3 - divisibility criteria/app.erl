@@ -9,7 +9,7 @@ fiat() -> ok .
 lux () ->
 
     Options = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 25 ],
-    Value   =   29282,
+    Value   =   765398473,
 
     Elms = fun(Value, X) -> 
         Result = division:divisible_by(Value, X),
