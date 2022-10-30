@@ -4,11 +4,11 @@
 
 divisible_by(Value, Number) ->
     case Number of
-        2 -> Value rem Number == 0;
+        2 -> Value rem 2 == 0;
         3 -> divisible_by_3(Value);
         4 -> divisible_by_4(Value);
         5 -> divisible_by_5(Value);
-        6 -> false;
+        6 -> divisible_by_6(Value);
         7 -> false;
         8 -> false;
         9 -> false;
@@ -52,5 +52,9 @@ divisible_by_5(Value) ->
         Num == 0 -> true;
         true -> false
     end.
+
+
+divisible_by_6(Value) ->
+    (Value rem 2 == 0) and (divisible_by_3(Value) == true).
 
 
