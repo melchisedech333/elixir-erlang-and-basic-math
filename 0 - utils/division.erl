@@ -75,8 +75,8 @@ divisible_by_7(Value) ->
             Blocks = utils:split_list_in_blocks(List, 3, 0),
             process_blocks(Blocks);
         true ->
-            Last = utils:list_numbers_to_string(List),
-            { Num, _ } = string:to_integer(Last),
+            Nstr = utils:list_numbers_to_string(List),
+            { Num, _ } = string:to_integer(Nstr),
             Num rem 7 == 0
     end.
 

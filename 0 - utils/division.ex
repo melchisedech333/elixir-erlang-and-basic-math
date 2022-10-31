@@ -1,7 +1,7 @@
 
 import Utils, only: [number_to_list: 1, sums_elements: 1, get_last_items: 2,
                      list_numbers_to_string: 1, split_list_in_blocks: 3,
-                     map_elements: 2]
+                     map_elements: 2, get_list_size: 1]
 
 defmodule Division do
     def divisible_by(value, number) do
@@ -72,8 +72,19 @@ defmodule Division do
 
     def divisible_by_7(value) do
         list = number_to_list(value)
-        blocks = split_list_in_blocks(list, 3, 0)
+        size = get_list_size(list)
 
+        if size > 3 do
+            blocks = split_list_in_blocks(list, 3, 0)
+            process_blocks(blocks)
+        else
+            nstr = list_numbers_to_string(list)
+            { num, _ } = :string.to_integer(nstr)
+            rem(num, 7) == 0
+        end
+    end
+
+    def process_blocks(blocks) do
         rest = map_elements(fn(x) ->
             rem(x, 7) 
         end, blocks)
