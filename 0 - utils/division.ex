@@ -1,5 +1,5 @@
 
-import Utils, only: [number_to_list: 1]
+import Utils, only: [number_to_list: 1, sums_elements: 1]
 
 defmodule Division do
     def divisible_by(value, number) do
@@ -24,16 +24,12 @@ defmodule Division do
     end
 
     def divisible_by_3(value) do
-        # List  = utils:number_to_list(Value),
-        # Total = utils:sums_elements(List),
-        # Total rem 3 == 0.
-
         list  = number_to_list(value)
-        total = 
+        total = sums_elements(list)
 
-        IO.puts("list: #{ inspect(list) }")
+        IO.puts("total: #{ total }")
 
-        false
+        rem(total, 3) == 0
     end
 end
 

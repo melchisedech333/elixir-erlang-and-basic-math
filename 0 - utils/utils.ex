@@ -59,6 +59,26 @@ defmodule Utils do
         map_elements(adjust, items)
     end
 
+
+    # 
+    # Perform the sum of all elements of a list. The function 
+    # returns only an integer. 
+    # 
+    #   total = sums_elements(list)
+    # 
+
+    def sums_elements(list) do
+        sums_elements(list, 0)
+    end
+
+    def sums_elements([ first | rest ], number) do
+        sums_elements(rest, first + number)
+    end
+
+    def sums_elements([], number) do
+        number
+    end
+
 end
 
 
