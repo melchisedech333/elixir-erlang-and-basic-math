@@ -8,7 +8,7 @@ defmodule Division do
             2  -> rem(value, number) == 0
             3  -> divisible_by_3(value)
             4  -> divisible_by_4(value)
-            5  -> false
+            5  -> divisible_by_5(value)
             6  -> false
             7  -> false
             8  -> false
@@ -47,6 +47,20 @@ defmodule Division do
     def divisible_by_4(value) do
         IO.puts("invalid number (divisible by 4).")
         false
+    end
+
+
+    def divisible_by_5(value) do
+        list = number_to_list(value)
+        elem = get_last_items(list, 1)
+        last = list_numbers_to_string(elem)
+        { num, _ } = :string.to_integer(last)
+
+        case num do
+            5 -> true
+            0 -> true
+            _ -> false
+        end
     end
 end
 
