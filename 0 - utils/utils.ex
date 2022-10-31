@@ -224,7 +224,7 @@ defmodule Utils do
     # 
 
     def split_list_in_blocks(_, block_size, _) when block_size <= 0 do
-        IO.parts("Invalid block size.")
+        IO.puts("Invalid block size.")
         []
     end
 
@@ -232,7 +232,7 @@ defmodule Utils do
         size = get_list_size(list)
 
         if block_size > size do
-            IO.parts("Invalid block size.")
+            IO.puts("Invalid block size.")
             []
         else
             process_split_blocks(list, size, block_size, adjust)
