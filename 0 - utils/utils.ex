@@ -79,6 +79,86 @@ defmodule Utils do
         number
     end
 
+
+    # 
+    # Returns the last N elements of a list.
+    #
+    #   elements = get_last_items([1, 2, 3], 2)
+    #
+
+    def get_last_items(start_list, start_amount) do
+        if start_amount <= 0 do
+            IO.puts("Invalid amount.")
+            false
+        else
+            size   = get_list_size(start_list)
+            amount = adjust_amount(start_amount, size)
+            offset = (size - amount) + 1
+
+            get_last_items(start_list, offset, 1, [])
+        end
+    end
+
+
+    def get_last_items([ head | rest ], offset, index, list) when index >= offset do
+        get_last_items(rest, offset, index + 1, [ head | list ])
+    end
+
+    def get_last_items([ head | rest ], offset, index, list) do
+        get_last_items(rest, offset, index + 1, list)
+    end
+
+    def get_last_items([], offset, index, list) do
+        reverse_list(list)
+    end
+
+
+    def adjust_amount(amount, size) when amount > size do
+        size
+    end
+
+    def adjust_amount(amount, size) do
+        amount
+    end
+
+
+    #
+    # Returns the number of elements in a list.
+    #
+    #   size = get_list_size([1, 2, 3])
+    #
+
+    def get_list_size(list) do
+        get_list_size(list, 0)
+    end
+
+    def get_list_size([ first | rest ], count) do
+        get_list_size(rest, count + 1)
+    end
+
+    def get_list_size([], count) do
+        count
+    end
+
+
+    #
+    # Reverses the order of elements in a list. 
+    # 
+    #   list = reverse_list([1, 2, 3])
+    # 
+
+    def reverse_list(list) do
+        reverse_list(list, [])
+    end
+
+    def reverse_list([ head | rest ], list) do
+        reverse_list(rest, [ head | list])
+    end
+
+    def reverse_list([], list) do
+        list
+    end
+
 end
 
 
