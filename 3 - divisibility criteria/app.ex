@@ -2,6 +2,7 @@
 # Iesus Hominum Salvator <3
 
 import Utils, only: [access_elements_pvalue: 3]
+import Division, only: [divisible_by: 2]
 
 defmodule IHS do
     defmodule Fiat do
@@ -11,7 +12,8 @@ defmodule IHS do
             value   =   10
 
             elms = fn(value, x) ->
-                IO.puts("value: #{value}, x: #{x}")
+                result = divisible_by(value, x)
+                IO.puts("#{value} is divisible by #{x}: #{result}")
             end
 
             access_elements_pvalue(elms, value, options)

@@ -8,19 +8,23 @@
 
 divisible_by(Value, Number) ->
     case Number of
-        2 -> Value rem 2 == 0;
-        3 -> divisible_by_3(Value);
-        4 -> divisible_by_4(Value);
-        5 -> divisible_by_5(Value);
-        6 -> divisible_by_6(Value);
-        7 -> divisible_by_7(Value);
-        8 -> false;
-        9 -> false;
+        2  -> Value rem 2 == 0;
+        3  -> divisible_by_3(Value);
+        4  -> divisible_by_4(Value);
+        5  -> divisible_by_5(Value);
+        6  -> divisible_by_6(Value);
+        7  -> divisible_by_7(Value);
+        8  -> false;
+        9  -> false;
         10 -> false;
         11 -> false;
         12 -> false;
         15 -> false;
-        25 -> false
+        25 -> false;
+        
+        _Else -> 
+            io:format("Division by ~w not supported.~n", [ Number ]),
+            false
     end.
 
 
