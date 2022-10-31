@@ -277,7 +277,7 @@ process_segmented_blocks(List, Size, BlockSize, Adjust) ->
                 C = get_last_items(List, Mod),
                 Number = prepare_block_number(reverse_list(C)),
                 Blocks = process_stable_blocks(B, BlockSize, 1, [], []),
-                lists:append(Blocks, [ Number ])
+                Blocks ++ [ Number ]
             end;
         true ->
             io:format("invalid number to convert.~n"), []

@@ -64,7 +64,7 @@ divisible_by_6(Value) ->
 
 divisible_by_7(Value) ->
     List = utils:number_to_list(Value),
-    Blocks = utils:split_list_in_blocks(List, 3, 0),
+    Blocks = utils:split_list_in_blocks(List, 3, 1),
 
     io:format("Blocks: ~w~n", [ Blocks ]),
 
