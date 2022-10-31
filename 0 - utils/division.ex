@@ -6,7 +6,7 @@ defmodule Division do
         case number do
             2  -> rem(value, number) == 0
             3  -> divisible_by_3(value)
-            4  -> false
+            4  -> divisible_by_4(value)
             5  -> false
             6  -> false
             7  -> false
@@ -26,10 +26,11 @@ defmodule Division do
     def divisible_by_3(value) do
         list  = number_to_list(value)
         total = sums_elements(list)
-
-        IO.puts("total: #{ total }")
-
         rem(total, 3) == 0
+    end
+
+    def divisible_by_4(value) do
+
     end
 end
 
