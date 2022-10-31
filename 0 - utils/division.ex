@@ -9,7 +9,7 @@ defmodule Division do
             3  -> divisible_by_3(value)
             4  -> divisible_by_4(value)
             5  -> divisible_by_5(value)
-            6  -> false
+            6  -> divisible_by_6(value)
             7  -> false
             8  -> false
             9  -> false
@@ -61,6 +61,11 @@ defmodule Division do
             0 -> true
             _ -> false
         end
+    end
+
+    
+    def divisible_by_6(value) do
+        (rem(value, 2) == 0) and (divisible_by_3(value) == true)
     end
 end
 
