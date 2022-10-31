@@ -1,4 +1,11 @@
 
+#
+# Checks whether a given integer is divisible by another number.
+# Supported divisibility criteria are: 2, 3, 4, 5, 6, 7, 8, 9, 10.
+#
+# Iesus Hominum Salvator <3
+#
+
 import Utils, only: [number_to_list: 1, sums_elements: 1, get_last_items: 2,
                      list_numbers_to_string: 1, split_list_in_blocks: 3,
                      map_elements: 2, get_list_size: 1]

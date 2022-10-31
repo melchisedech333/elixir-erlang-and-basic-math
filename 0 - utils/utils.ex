@@ -1,4 +1,11 @@
 
+#
+# Functions used throughout the application to cooperate in solving 
+# a variety of problems.
+# 
+# Iesus Hominum Salvator <3
+#
+
 defmodule Utils do
 
     # 

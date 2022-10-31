@@ -1,5 +1,8 @@
 
 %
+% Checks whether a given integer is divisible by another number.
+% Supported divisibility criteria are: 2, 3, 4, 5, 6, 7, 8, 9, 10.
+%
 % Iesus Hominum Salvator <3
 %
 
