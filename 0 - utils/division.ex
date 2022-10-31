@@ -14,7 +14,7 @@ defmodule Division do
             7  -> divisible_by_7(value)
             8  -> divisible_by_8(value)
             9  -> divisible_by_9(value)
-            10 -> false
+            10 -> divisible_by_10(value)
             11 -> false
             12 -> false
             15 -> false
@@ -179,6 +179,15 @@ defmodule Division do
         sum_and_rem(value, 9)
     end
 
+
+    def divisible_by_10(value) do
+        list = number_to_list(value)
+        elem = get_last_items(list, 1)
+        last = list_numbers_to_string(elem)
+        { num, _ } = :string.to_integer(last)
+
+        num == 0
+    end
 end
 
 
