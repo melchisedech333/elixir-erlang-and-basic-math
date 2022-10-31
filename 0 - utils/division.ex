@@ -13,7 +13,7 @@ defmodule Division do
             6  -> divisible_by_6(value)
             7  -> divisible_by_7(value)
             8  -> divisible_by_8(value)
-            9  -> false
+            9  -> divisible_by_9(value)
             10 -> false
             11 -> false
             12 -> false
@@ -26,10 +26,15 @@ defmodule Division do
     end
 
 
-    def divisible_by_3(value) do
+    def sum_and_rem(value, current) do
         list  = number_to_list(value)
         total = sums_elements(list)
-        rem(total, 3) == 0
+        rem(total, current) == 0
+    end
+
+
+    def divisible_by_3(value) do
+        sum_and_rem(value, 3)
     end
 
 
@@ -167,6 +172,11 @@ defmodule Division do
         last = list_numbers_to_string(elem)
         { num, _ } = :string.to_integer(last)
         rem(num, 8) == 0
+    end
+
+
+    def divisible_by_9(value) do
+        sum_and_rem(value, 9)
     end
 
 end
