@@ -14,7 +14,7 @@ divisible_by(Value, Number) ->
         5  -> divisible_by_5(Value);
         6  -> divisible_by_6(Value);
         7  -> divisible_by_7(Value);
-        8  -> false;
+        8  -> divisible_by_8(Value);
         9  -> false;
         10 -> false;
         11 -> false;
@@ -130,5 +130,16 @@ process_rest_signal(Signal, Last, Current, Result, First) ->
                 Signal == 1 -> Result + Current  % Positive values.
             end
     end.
+
+
+divisible_by_8(Value) when Value =< 999 ->
+    Value rem 8 == 0;
+
+divisible_by_8(Value) when Value > 999 ->
+    List = utils:number_to_list(Value),
+    Elem = utils:get_last_items(List, 3),
+    Last = utils:list_numbers_to_string(Elem),
+    { Num, _ } = string:to_integer(Last),
+    Num rem 8 == 0.
 
 
