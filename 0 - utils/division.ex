@@ -37,6 +37,7 @@ defmodule Division do
         rem(value, 4) == 0
     end
 
+
     def divisible_by_4(value) when value > 99 do
         list = number_to_list(value)
         elem = get_last_items(list, 2)
@@ -44,6 +45,7 @@ defmodule Division do
         { num, _ } = :string.to_integer(last)
         rem(num, 4) == 0
     end
+
 
     def divisible_by_4(_) do
         IO.puts("invalid number (divisible by 4).")
@@ -84,6 +86,7 @@ defmodule Division do
         end
     end
 
+
     def process_blocks(blocks) do
         rest = map_elements(fn(x) ->
             rem(x, 7) 
@@ -91,6 +94,7 @@ defmodule Division do
 
         rem(process_rest_calc(rest, 1, 0, 0, 0, 0), 7) == 0
     end
+
 
     def process_rest_calc([ h | r ], signal, last, first, result, first_calc) do
         
@@ -130,9 +134,11 @@ defmodule Division do
         end
     end
 
+
     def process_rest_calc([], _, _, _, result, _) do
         result
     end
+
 
     def process_rest_signal(signal, last, current, result, first) do
         if first == 0 do
