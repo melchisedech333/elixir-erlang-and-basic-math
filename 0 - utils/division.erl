@@ -15,7 +15,7 @@ divisible_by(Value, Number) ->
         6  -> divisible_by_6(Value);
         7  -> divisible_by_7(Value);
         8  -> divisible_by_8(Value);
-        9  -> false;
+        9  -> divisible_by_9(Value);
         10 -> false;
         11 -> false;
         12 -> false;
@@ -28,10 +28,14 @@ divisible_by(Value, Number) ->
     end.
 
 
-divisible_by_3(Value) ->
+sum_and_rem(Value, Current) ->
     List  = utils:number_to_list(Value),
     Total = utils:sums_elements(List),
-    Total rem 3 == 0.
+    Total rem Current == 0.
+
+
+divisible_by_3(Value) ->
+    sum_and_rem(Value, 3).
 
 
 divisible_by_4(Value) when Value =< 99 -> 
@@ -141,5 +145,9 @@ divisible_by_8(Value) when Value > 999 ->
     Last = utils:list_numbers_to_string(Elem),
     { Num, _ } = string:to_integer(Last),
     Num rem 8 == 0.
+
+
+divisible_by_9(Value) ->
+    sum_and_rem(Value, 9).
 
 
