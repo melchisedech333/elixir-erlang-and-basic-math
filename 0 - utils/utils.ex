@@ -159,6 +159,23 @@ defmodule Utils do
         list
     end
 
+
+    #
+    # Converts a list of integers to the equivalent string 
+    # representation according to the ASCII table.
+    #
+    #   string = list_numbers_to_string([1, 2, 3])
+    #
+
+    def list_numbers_to_string(list) do
+
+        convert = fn(x) -> 
+            x + 48 # ASCII table.
+        end
+
+        map_elements(convert, list)
+    end
+
 end
 
 
