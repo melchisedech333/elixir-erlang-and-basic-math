@@ -8,7 +8,7 @@ defmodule IHS do
     defmodule Fiat do
         def lux() do
 
-            options = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 25 ]
+            options = [ 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
             value   =   180
 
             elms = fn(value, x) ->

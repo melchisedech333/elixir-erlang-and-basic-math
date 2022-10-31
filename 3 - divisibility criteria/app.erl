@@ -8,7 +8,7 @@ ihs () -> fiat(), lux().
 fiat() -> ok .
 lux () ->
 
-    Options = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 25 ],
+    Options = [ 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
     Value   =   3450,
 
     Elms = fun(Number, X) -> 

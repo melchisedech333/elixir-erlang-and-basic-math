@@ -17,10 +17,6 @@ divisible_by(Value, Number) ->
         8  -> divisible_by_8(Value);
         9  -> divisible_by_9(Value);
         10 -> divisible_by_10(Value);
-        11 -> false;
-        12 -> false;
-        15 -> false;
-        25 -> false;
         
         _Else -> 
             io:format("Division by ~w not supported.~n", [ Number ]),

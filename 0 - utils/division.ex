@@ -15,10 +15,6 @@ defmodule Division do
             8  -> divisible_by_8(value)
             9  -> divisible_by_9(value)
             10 -> divisible_by_10(value)
-            11 -> false
-            12 -> false
-            15 -> false
-            25 -> false
             _  -> 
                 IO.puts("Division by #{number} not supported.")
                 false
