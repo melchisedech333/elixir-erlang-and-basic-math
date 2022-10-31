@@ -258,10 +258,6 @@ process_segmented_blocks(List, Size, BlockSize, Adjust) ->
     Offset = trunc(Size / BlockSize),
     Check  = (Offset * BlockSize) + Mod,
 
-    io:format("mod: ~w, offset: ~w, check: ~w, bsize: ~w, size: ~w~n~n", [
-        Mod, Offset, Check, BlockSize, Size
-    ]),
-
     if 
         Check == Size ->
 
@@ -273,12 +269,15 @@ process_segmented_blocks(List, Size, BlockSize, Adjust) ->
                 Number = prepare_block_number(reverse_list(C)),
                 Blocks = process_stable_blocks(B, BlockSize, 1, [], []),
                 [ Number | Blocks ];
-
+                
             %% Left adjust.
             true ->
-                io:format("left adjust.~n"), 
-                
-                []
+                A = (Offset * BlockSize),
+                B = get_first_items(List, A),
+                C = get_last_items(List, Mod),
+                Number = prepare_block_number(reverse_list(C)),
+                Blocks = process_stable_blocks(B, BlockSize, 1, [], []),
+                lists:append(Blocks, [ Number ])
             end;
         true ->
             io:format("invalid number to convert.~n"), []
