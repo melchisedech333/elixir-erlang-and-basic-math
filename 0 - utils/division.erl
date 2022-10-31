@@ -68,12 +68,23 @@ divisible_by_6(Value) ->
 
 divisible_by_7(Value) ->
     List = utils:number_to_list(Value),
-    Blocks = utils:split_list_in_blocks(List, 3, 0),
+    Size = utils:get_list_size(List),
 
+    if
+        Size > 3 -> 
+            Blocks = utils:split_list_in_blocks(List, 3, 0),
+            process_blocks(Blocks);
+        true ->
+            Last = utils:list_numbers_to_string(List),
+            { Num, _ } = string:to_integer(Last),
+            Num rem 7 == 0
+    end.
+
+process_blocks(Blocks) ->
     Rest = utils:map_elements(fun(X) -> 
         X rem 7 
     end, Blocks),
-
+    
     process_rest_calc(Rest, 1, 0, 0, 0, 0) rem 7 == 0.
 
 process_rest_calc([ H | R], Signal, Last, First, Result, FirstCalc) ->
