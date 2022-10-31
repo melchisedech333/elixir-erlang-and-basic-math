@@ -64,62 +64,56 @@ divisible_by_6(Value) ->
 
 divisible_by_7(Value) ->
     List = utils:number_to_list(Value),
-    Blocks = utils:split_list_in_blocks(List, 3, 1),
+    Blocks = utils:split_list_in_blocks(List, 3, 0),
 
-    io:format("Blocks: ~w~n", [ Blocks ]),
+    Rest = utils:map_elements(fun(X) -> 
+        X rem 7 
+    end, Blocks),
 
-    false.
+    process_rest_calc(Rest, 1, 0, 0, 0, 0) rem 7 == 0.
 
+process_rest_calc([ H | R], Signal, Last, First, Result, FirstCalc) ->
+    if 
+        % First call.
+        First == 0 ->
+            if  Signal == 0 -> process_rest_calc(R, 1, H, 1, 0, 0);
+                true        -> process_rest_calc(R, 0, H, 1, 0, 0)
+            end;
 
-% fn divisible_by_7(value :i32) -> bool {
-%     let number = value.to_string();
-%     let len = number.len() - 1;
-%     let mut s = String::from("");
-%     let mut counter1 = 0;
-%     let mut counter2 = 0;
-%     let mut numbers :Vec<i32> = Vec::new();
+        % process calculations.
+        true ->
+            if 
+                FirstCalc == 0 -> % First calculation.
+                    Ret = process_rest_signal(Signal, Last, H, Result, 0),
 
-%     // Separate numbers into 3-digit blocks and divide by 7.
-%     for item in number.chars().rev() {
-%         let num = item.to_string();
-%         s.push_str(&num[..]);
+                    if  Signal == 0 -> process_rest_calc(R, 1, H, 1, Ret, 1);
+                        true ->        process_rest_calc(R, 0, H, 1, Ret, 1)
+                    end;
+                
+                true -> % Remaining calculations.
+                    Ret = process_rest_signal(Signal, Last, H, Result, 1),
 
-%         if counter1 == 2 || counter2 == len {
-%             let nums :String = s.chars().rev().collect();
-%             let num : i32 = nums.to_string().parse()
-%                 .expect("Invalid number.");
-%             s.clear();
-%             counter1 = 0;
-%             numbers.push(num % 7);
-%         } else {
-%             counter1 += 1;
-%         }
+                    if  Signal == 0 -> process_rest_calc(R, 1, H, 1, Ret, 1);
+                        true ->        process_rest_calc(R, 0, H, 1, Ret, 1)
+                    end
+            end
+    end;
 
-%         counter2 += 1;
-%     }
+process_rest_calc([], Signal, Last, First, Result, FirstCalc) ->
+    Result.
 
-%     // Processes the value of the remainder of the division and their signs.
-%     let mut numbers :Vec<i32> = numbers.into_iter().rev().collect();
-%     let mut flag = true;
-%     let mut total = 0;
-
-%     for num in &mut numbers {
-%         let mut number = String::from("");
-
-%         if flag == true {
-%             number.push_str(&format!("{}", num));
-%             flag = false;
-%         } else {
-%             number.push_str(&format!("-{}", num));
-%             flag = true;
-%         }
-
-%         let number :i32 = number.to_string()
-%             .parse().expect("Invalid number.");
-%         total += number;
-%     }
-
-%     total % 7 == 0
-% }
+process_rest_signal(Signal, Last, Current, Result, First) ->
+    if 
+        First == 0 ->
+            if 
+                Signal == 0 -> Result + (Last - Current); % Negative values.
+                Signal == 1 -> Result + (Last + Current)  % Positive values.
+            end;
+        true ->
+            if 
+                Signal == 0 -> Result - Current; % Negative values.
+                Signal == 1 -> Result + Current  % Positive values.
+            end
+    end.
 
 
