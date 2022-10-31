@@ -12,7 +12,7 @@ defmodule Division do
             5  -> divisible_by_5(value)
             6  -> divisible_by_6(value)
             7  -> divisible_by_7(value)
-            8  -> false
+            8  -> divisible_by_8(value)
             9  -> false
             10 -> false
             11 -> false
@@ -155,6 +155,20 @@ defmodule Division do
             end
         end
     end
+
+
+    def divisible_by_8(value) when value <= 999 do
+        rem(value, 8) == 0
+    end
+
+    def divisible_by_8(value) when value > 999 do
+        list = number_to_list(value)
+        elem = get_last_items(list, 3)
+        last = list_numbers_to_string(elem)
+        { num, _ } = :string.to_integer(last)
+        rem(num, 8) == 0
+    end
+
 end
 
 
