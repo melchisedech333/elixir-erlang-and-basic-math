@@ -78,9 +78,65 @@ defmodule Division do
             rem(x, 7) 
         end, blocks)
 
-        IO.puts("rest: #{ inspect(rest) }")
+        rem(process_rest_calc(rest, 1, 0, 0, 0, 0), 7) == 0
+    end
 
-        # process_rest_calc(Rest, 1, 0, 0, 0, 0) rem 7 == 0.
+    def process_rest_calc([ h | r ], signal, last, first, result, first_calc) do
+        
+        # First call.
+        if first == 0 do
+
+            if signal == 0 do
+                process_rest_calc(r, 1, h, 1, 0, 0)
+            else
+                process_rest_calc(r, 0, h, 1, 0, 0)
+            end
+
+        # process calculations.
+        else
+
+            # First calculation.
+            if first_calc == 0 do
+                ret = process_rest_signal(signal, last, h, result, 0)
+
+                if signal == 0 do
+                    process_rest_calc(r, 1, h, 1, ret, 1)
+                else 
+                    process_rest_calc(r, 0, h, 1, ret, 1)
+                end;
+                
+            # Remaining calculations.
+            else
+                ret = process_rest_signal(signal, last, h, result, 1)
+
+                if signal == 0 do
+                    process_rest_calc(r, 1, h, 1, ret, 1)
+                else 
+                    process_rest_calc(r, 0, h, 1, ret, 1)
+                end
+            end
+        
+        end
+    end
+
+    def process_rest_calc([], _, _, _, result, _) do
+        result
+    end
+
+    def process_rest_signal(signal, last, current, result, first) do
+        if first == 0 do
+            if signal == 0 do 
+                result + (last - current) # Negative values.
+            else
+                result + (last + current)  # Positive values.
+            end;
+        else
+            if signal == 0 do
+                result - current # Negative values.
+            else
+                result + current  # Positive values.
+            end
+        end
     end
 end
 
