@@ -1,7 +1,11 @@
 
+%
+% Iesus Hominum Salvator <3
+%
+
 -module(utils).
 -export([map_elements/2, access_elements_pvalue/3, number_to_list/1, 
-         sums_elements/1, get_list_size/1, get_last_items/2,
+         sums_elements/1, get_list_size/1, get_first_items/2, get_last_items/2,
          reverse_list/1, list_numbers_to_string/1, split_list_in_blocks/3]).
 
 %% 
@@ -72,6 +76,27 @@ sums_elements([First | Rest], Number) ->
 
 sums_elements([], Number) ->
     Number.
+
+
+%% 
+%% Returns the first N elements of a list.
+%% 
+%%   Elements = get_first_items([1, 2, 3], 2)
+%% 
+
+get_first_items(List, Total) ->
+    get_first_items(List, Total, 0, []).
+
+get_first_items([ H | R], Total, Count, List) ->
+    if
+        Count < Total ->
+            get_first_items(R, Total, Count + 1, [ H | List ]);
+        true ->
+            get_first_items(R, Total, Count + 1, List)
+    end;
+
+get_first_items([], Total, Count, List) ->
+    reverse_list(List).
 
 
 %% 
@@ -169,13 +194,17 @@ list_numbers_to_string(List) ->
 %% Adjust - integer: 
 %%   Adjusts the alignment of blocks, if necessary.
 %%   
-%%   0 = Left  - Align the blocks to the left ([12, 234, 234]).
-%%   1 = Right - Align the blocks to the right ([122, 342, 34]).
+%%   0 = Right - Align the blocks to the right -> [ 12,  234, 234 ].
+%%   1 = Left  - Align the blocks to the left  -> [ 122, 342, 34  ].
 %% 
 %% Example of use:
 %% 
-%%   Blocks = split_list_in_blocks([1, 2, 3, 4, 5, 6], 3),
-%%   io:format("Blocks: ~w~n", [ Blocks ])
+%%   Blocks = split_list_in_blocks([1, 2, 3, 4, 5, 6, 7, 8], 3, 0),
+%%   io:format("Blocks: ~w~n", [ Blocks ]) 
+%% 
+%% Output:
+%% 
+%%   Blocks: [12, 345, 678]
 %% 
 
 split_list_in_blocks(List, BlockSize, Adjust) when BlockSize =< 0 ->
@@ -198,7 +227,7 @@ process_split_blocks(List, Size, BlockSize, Adjust) ->
         V == true -> 
             process_stable_blocks(List, BlockSize, 1, [], []);
         true ->
-            process_segmented_blocks(List, BlockSize, Adjust)
+            process_segmented_blocks(List, Size, BlockSize, Adjust)
     end.
 
 process_stable_blocks([ H | R ], BlockSize, Count, Block, Blocks) ->
@@ -224,8 +253,35 @@ prepare_block_number(List) ->
     { Number, _ } = string:to_integer(B),
     Number.
 
-process_segmented_blocks(List, BlockSize, Adjust) ->
+process_segmented_blocks(List, Size, BlockSize, Adjust) ->
+    Mod    = Size rem BlockSize,
+    Offset = trunc(Size / BlockSize),
+    Check  = (Offset * BlockSize) + Mod,
 
-    .
+    io:format("mod: ~w, offset: ~w, check: ~w, bsize: ~w, size: ~w~n~n", [
+        Mod, Offset, Check, BlockSize, Size
+    ]),
+
+    if 
+        Check == Size ->
+
+            %% Right adjust.
+            if Adjust == 0 ->
+                A = (Offset * BlockSize),
+                B = get_last_items(List, A),
+                C = get_first_items(List, Mod),
+                Number = prepare_block_number(reverse_list(C)),
+                Blocks = process_stable_blocks(B, BlockSize, 1, [], []),
+                [ Number | Blocks ];
+
+            %% Left adjust.
+            true ->
+                io:format("left adjust.~n"), 
+                
+                []
+            end;
+        true ->
+            io:format("invalid number to convert.~n"), []
+    end.
 
 
