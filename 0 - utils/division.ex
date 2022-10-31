@@ -1,6 +1,7 @@
 
 import Utils, only: [number_to_list: 1, sums_elements: 1, get_last_items: 2,
-                     list_numbers_to_string: 1]
+                     list_numbers_to_string: 1, split_list_in_blocks: 3,
+                     map_elements: 2]
 
 defmodule Division do
     def divisible_by(value, number) do
@@ -10,7 +11,7 @@ defmodule Division do
             4  -> divisible_by_4(value)
             5  -> divisible_by_5(value)
             6  -> divisible_by_6(value)
-            7  -> false
+            7  -> divisible_by_7(value)
             8  -> false
             9  -> false
             10 -> false
@@ -44,7 +45,7 @@ defmodule Division do
         rem(num, 4) == 0
     end
 
-    def divisible_by_4(value) do
+    def divisible_by_4(_) do
         IO.puts("invalid number (divisible by 4).")
         false
     end
@@ -66,6 +67,20 @@ defmodule Division do
     
     def divisible_by_6(value) do
         (rem(value, 2) == 0) and (divisible_by_3(value) == true)
+    end
+
+
+    def divisible_by_7(value) do
+        list = number_to_list(value)
+        blocks = split_list_in_blocks(list, 3, 0)
+
+        rest = map_elements(fn(x) ->
+            rem(x, 7) 
+        end, blocks)
+
+        IO.puts("rest: #{ inspect(rest) }")
+
+        # process_rest_calc(Rest, 1, 0, 0, 0, 0) rem 7 == 0.
     end
 end
 

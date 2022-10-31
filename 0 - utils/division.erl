@@ -44,7 +44,7 @@ divisible_by_4(Value) when Value  > 99 ->
     { Num, _ } = string:to_integer(Last),
     Num rem 4 == 0;
 
-divisible_by_4(Value) ->
+divisible_by_4(_) ->
     io:format("invalid number (divisible by 4).~n"), 
     false.
 
@@ -103,7 +103,7 @@ process_rest_calc([ H | R], Signal, Last, First, Result, FirstCalc) ->
             end
     end;
 
-process_rest_calc([], Signal, Last, First, Result, FirstCalc) ->
+process_rest_calc([], _, _, _, Result, _) ->
     Result.
 
 process_rest_signal(Signal, Last, Current, Result, First) ->

@@ -11,9 +11,9 @@ lux () ->
     Options = [ 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 15, 25 ],
     Value   =   22389651536,
 
-    Elms = fun(Value, X) -> 
-        Result = division:divisible_by(Value, X),
-        io:format("~w is divisible by ~w: ~w~n", [ Value, X, Result ])
+    Elms = fun(Number, X) -> 
+        Result = division:divisible_by(Number, X),
+        io:format("~w is divisible by ~w: ~w~n", [ Number, X, Result ])
     end,
 
     utils:access_elements_pvalue(Elms, Value, Options).

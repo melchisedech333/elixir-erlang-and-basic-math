@@ -20,7 +20,7 @@
 map_elements(Fun, [First | Rest]) -> 
     [Fun(First) | map_elements(Fun, Rest)];
 
-map_elements(Fun, []) -> 
+map_elements(_, []) -> 
     [].
 
 
@@ -39,7 +39,7 @@ map_elements(Fun, []) ->
 access_elements_pvalue(Fun, Value, [First | Rest]) ->
     Fun(Value, First),
     access_elements_pvalue(Fun, Value, Rest);
-access_elements_pvalue(Fun, Value, []) ->
+access_elements_pvalue(_, _, []) ->
     ok.
 
 
@@ -95,7 +95,7 @@ get_first_items([ H | R], Total, Count, List) ->
             get_first_items(R, Total, Count + 1, List)
     end;
 
-get_first_items([], Total, Count, List) ->
+get_first_items([], _, _, List) ->
     reverse_list(List).
 
 
@@ -123,16 +123,16 @@ get_last_items(StartList, StartAmount) ->
 get_last_items([Head | Rest], Offset, Index, List) when Index >= Offset ->
     get_last_items(Rest, Offset, Index + 1, [ Head | List ]);
 
-get_last_items([Head | Rest], Offset, Index, List) ->
+get_last_items([_ | Rest], Offset, Index, List) ->
     get_last_items(Rest, Offset, Index + 1, List);
 
-get_last_items([], Offset, Index, List) ->
+get_last_items([], _, _, List) ->
     reverse_list(List).
 
 
 adjust_amount(Amount, Size) when Amount > Size ->
     Size;
-adjust_amount(Amount, Size) ->
+adjust_amount(Amount, _) ->
     Amount.
 
 
@@ -145,7 +145,7 @@ adjust_amount(Amount, Size) ->
 get_list_size(List) ->
     get_list_size(List, 0).
 
-get_list_size([First | Rest], Count) ->
+get_list_size([_ | Rest], Count) ->
     get_list_size(Rest, Count + 1);
 
 get_list_size([], Count) ->
@@ -207,11 +207,11 @@ list_numbers_to_string(List) ->
 %%   Blocks: [12, 345, 678]
 %% 
 
-split_list_in_blocks(List, BlockSize, Adjust) when BlockSize =< 0 ->
+split_list_in_blocks(_, BlockSize, _) when BlockSize =< 0 ->
     io:format("Invalid block size.~n"), [];
 
 split_list_in_blocks(List, BlockSize, Adjust) ->
-    Size = utils:get_list_size(List),
+    Size = get_list_size(List),
 
     if
         BlockSize > Size ->
@@ -243,7 +243,7 @@ process_stable_blocks([ H | R ], BlockSize, Count, Block, Blocks) ->
                 R, BlockSize, Count + 1, [ H | Block ], Blocks)
     end;
     
-process_stable_blocks([], BlockSize, Count, Block, Blocks) ->
+process_stable_blocks([], _, _, Block, Blocks) ->
     BlockItem = prepare_block_number(Block),
     reverse_list([ BlockItem | Blocks ]).
 
